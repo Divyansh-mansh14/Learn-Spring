@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+	
+	<head>
+		<title>Student Registration Form</title>
+	</head>
+	
+	<body>
+		
+		<h3>Student Registraton Form</h3>
+		
+		<form th:action="@{/processStudentForm}" th:object="${student}" method="POST">
+			
+			<!-- Here *{firstName} means ${student.firstName}-->
+			
+			First Name: <input type="text" th:field="*{firstName}"/>
+			
+			<br><br>
+			
+			Last Name: <input type="text" th:field="*{lastName}"/>
+			
+			<br><br>
+			
+			Country: 
+			
+			<!-- Here we are using the List from the application.properties file.-->
+			<select th:field="*{country}">
+				<option th:each="tempCountry : ${countries}" th:value="${tempCountry}" th:text="${tempCountry}"/>
+				
+				<!--th:each is like the for loop which will assign the country name on each index.
+					th:value is the value which will be sent during the form submission.
+					th:text is the value which will be displayed to the user in the drop down list
+				-->
+				
+			</select>
+			
+			
+			
+			
+			<!--We can simply hard code the values of the country names like this 
+				th:value is displayed as output and the one between the tags (<option>Australia</option>) is displayed as option in the drop down list.
+			<select th:field="*{country}">
+				<option th:value="Australia">Australia</option>
+				<option th:value="Brazil">Brazil</option>
+				<option th:value="China">China</option>
+				<option th:value="France">France</option>
+				<option th:value="Germany">Germany</option>
+				<option th:value="Hungary">Hungary</option>
+				<option th:value="India">India</option>
+				<option th:value="Jamaica">Jamaica</option>
+				<option th:value="USA">USA</option>
+			</select>
+			-->
+			
+			<br><br>
+			
+			Favourite Language: 
+			
+			
+			<!--
+			<input type="radio" th:field="*{favouriteLanguage}" th:value="'C++'">C++</input>
+			<input type="radio" th:field="*{favouriteLanguage}" th:value="Java">Java</input>
+			<input type="radio" th:field="*{favouriteLanguage}" th:value="Python">Python</input>
+			-->
+			
+			
+			<input type="radio" th:field="*{favouriteLanguage}" 
+								th:each="tempLanguage : ${languages}" 
+								th:value="${tempLanguage}" 
+								th:text="${tempLanguage}"/>
+								
+			<br><br>
+			
+			Favourite Operating System:
+			<!--
+			<input type="checkbox" th:field="*{favouriteOperatingSystem}" th:value="Linux">Linux</input>
+			<input type="checkbox" th:field="*{favouriteOperatingSystem}" th:value="macOS">macOS</input>
+			-->
+			<!-- When we want to add a space in the name of the th:value we have to give it in single inverted Commas(' ')-->
+			<!--
+			<input type="checkbox" th:field="*{favouriteOperatingSystem}" th:value="'Microsoft Windows'">Microsoft Windows</input>
+			-->
+			
+			<input type="checkbox" th:field="*{favouriteOperatingSystem}" 
+								   th:each="tempOS : ${operatingSystem}"
+								   th:value="${tempOS}" 
+								   th:text="${tempOS}"/>
+								   
+			
+			<br><br>
+			
+			<input type="submit" value="Submit"/>
+			
+			
+			<!-- 
+			*{firstName}/*{LastName} at the time of loading the form
+			when the form is loaded spring MVC will read the Student from the model 
+			then call student.getFirstName / student.getLastName
+			
+			*{firstName} / *{lastName} after form submission
+			After the form is submitted Spring MVC will create a new Student instance and add the model
+			then call student.setFirstName / student.setLastName  
+			and then it will pass appropriate data over to the actual Controller method
+			-->
+			
+		</form>
+		
+		
+		
+	</body>
+	
+</html>

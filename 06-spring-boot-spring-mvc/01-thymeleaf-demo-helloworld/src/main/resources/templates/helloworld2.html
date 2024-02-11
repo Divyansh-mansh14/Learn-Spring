@@ -1,0 +1,19 @@
+<DOCTYPE HTML>
+<html xmlns: th="https://www.thymeleaf.org">
+
+	<head>
+		<title>Thymeleaf Demo</title>
+		
+		<!-- refrence CSS file-->
+		<link rel="stylesheet" 
+			th:href="@{/css/demo.css}"/>
+	</head>
+	
+	<body class="class">
+	<!--Thymeleaf will access date from theDate from the Spring MVC model (DemoController file) -->
+		<p th:text="'Time on the Server is ' + ${theDate}" class="funny"/>
+	</body>
+
+
+
+</html>
