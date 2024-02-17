@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<!-- xmlns means XML name space
+we are using xmlns for thymeleaf
+xmlns doesn't connect to internet..
+It's just a unique Identifier that is configured in the thymeleaf JAR file-->
+
+<html lang="en" xmlns:th="www.thymeleaf.org">
+	
+	<head>
+		
+		<meta charset="UTF-8">
+		<meta name="viewpoint" content-width="device-width, initial-scale=1">
+		<title>Custom Login Page</title>
+		<style>
+			
+			.failed{
+				color:red;
+			}
+			
+		</style>
+		
+	</head>
+	
+	<body>
+		
+		<h3>My Custom Login Page</h3>
+		<!--@ is context Path it is the Base url of our website. Instead of writing the whole URL we can simply write @
+		The advantage of using this is that if we hard code our URL and infuture we have to change the base URL then 
+		we have to manually change the URL from all the Forms but if we use Context Path It will automatically get the base URL
+		
+		Using this instead of hardcoding the Url is considered as a best practice-->
+		<form action="#" th:action="@{/authenticateTheUser}" method="POST">
+		
+			<!-- param.error is used to check if there are any error in the login form or any invalid info is passed to the form
+			Spring will automatically bind the ?error to the url.Here that is checked if there is ?error present in the URL or not-->
+			<div class="failed" th:if="${param.error}">
+				
+				<i>Sorry! you have entered invlaid username/password</i>
+				
+			</div>
+
+			<!-- Username and Passwords are the default names that the Spring Filter will read from data and Authenticate the User
+			So have to use the same name -->
+		    <p>
+			User name: <input type="text" name="username">
+			</p>
+
+			<p>
+			Password: <input type="text" name="password">
+			</p>
+			
+			<p>
+			<input type="submit" value="Login">
+			</p>
+		
+		</form>
+		
+	</body>
+	
+</html>
